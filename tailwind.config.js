@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#be8a7d', // Dark Pink
-        secondary: '#1b365d', // Dark Blue
+        primary: '#1b365d', // Dark Pink
+        secondary: 'white', // Dark Blue
       },
     },
   },
