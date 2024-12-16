@@ -14,7 +14,7 @@ const Card = ({ title, description, features, buttonText, onButtonClick }) => {
         </div>
         <button
           onClick={onButtonClick}
-          className="mt-auto px-4 py-2 bg-secondary text-white rounded hover:bg-opacity-90 transition"
+          className="mt-auto px-4 py-2 bg-secondary text-primary rounded hover:bg-opacity-90 transition"
         >
           {buttonText}
         </button>
