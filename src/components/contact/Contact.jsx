@@ -111,8 +111,8 @@ const Contact = () => {
           <div className="w-full md:w-3/5 flex flex-col gap-5">
             <div className="flex items-center gap-2 hover:underline hover:text-lg">
               <MdEmail className="text-gray-900" style={{ fontSize: 24 }} />
-              <a href="mailto:arshalanquasain.01@gmail.com" className="font-medium text-gray-900">
-                arshalanquasain.01@gmail.com
+              <a href="mailto:hello@aiguru.in" className="font-medium text-gray-900">
+                hello@aiguru.in
               </a>
             </div>
             <div className="flex items-center gap-2 hover:underline hover:text-lg">
