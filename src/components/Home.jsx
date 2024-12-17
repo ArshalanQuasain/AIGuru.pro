@@ -1,7 +1,6 @@
 import React from 'react';
 import { Brain } from 'lucide-react';
 import Data from './Data/industryData';
-import Section from './Section';
 import { useNavigate } from 'react-router-dom';
 import Up from './Button/top';
 import CodeIcon from '@mui/icons-material/Code';
