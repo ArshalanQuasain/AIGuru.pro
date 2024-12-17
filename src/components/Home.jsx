@@ -8,6 +8,7 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import ComputerIcon from '@mui/icons-material/Computer';
 import DevicesIcon from '@mui/icons-material/Devices';
 import StorageIcon from '@mui/icons-material/Storage';
+import Navbar from './navbar/Navbar';
 
 function Home() {
     const navigate = useNavigate();
@@ -43,8 +44,7 @@ function Home() {
 
     return (
         <>
-            {/* Background Gradient */}
-            <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none bg-gradient-to-b from-blue-900 to-blue-700">
+            <div className="fixed top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none bg-gradient-to-b from-blue-900 to-dustyRose">
                 {fixedIcons.map(({ Icon, top, left, size }, index) => (
                     <Icon
                         key={index}
@@ -59,16 +59,17 @@ function Home() {
                 ))}
             </div>
 
+
             {/* Main Content */}
             <div className="relative z-10">
                 <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
                     {/* Logo */}
-                    <Brain className="text-secondary mb-8 w-24 h-24" />
-                    <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-400">
+                    <Brain className="text-blue-300  mb-8 w-24 h-24" />
+                    <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-pink-900">
                         AIGuru.pro
                     </h1>
 
-                    <p className="text-slate-300 mt-2 text-lg">
+                    <p className=" mt-2 text-lg text-blue-200">
                         Transforming industries through cutting-edge AI solutions powered by <br />
                         ChatGPT and Claude
                     </p>
@@ -76,7 +77,7 @@ function Home() {
 
                 {/* Industries Section */}
                 <div className="w-full mx-auto py-6 px-4 md:px-16 lg:px-32">
-                    <h2 className="text-4xl font-bold text-sky-400 mb-8 text-center">
+                    <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 drop-shadow-lg mb-8 text-center">
                         Industries We Serve
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
@@ -105,7 +106,7 @@ function Home() {
 
                 {/* CTA Section */}
                 <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-                    <h2 className="text-4xl font-bold text-cyan-300 mb-4">
+                    <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 drop-shadow-lg text-center">
                         Ready to Transform Your Industry?
                     </h2>
                     <p className="text-slate-300 mt-2 text-lg mb-6">
@@ -113,7 +114,14 @@ function Home() {
                     </p>
                     <button
                         onClick={() => navigate('/solutions')}
-                        className="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-3 px-6 rounded-lg transition-transform transform duration-300 hover:translate-y-1"
+                        className="
+                        bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 
+                        text-white text-lg font-medium 
+                        py-3 px-6 rounded-lg 
+                        shadow-lg hover:shadow-xl 
+                        transform transition duration-300 
+                        active:scale-95 hover:-translate-y-1
+                      "                      
                     >
                         Explore Solutions
                     </button>

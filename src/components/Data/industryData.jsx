@@ -4,7 +4,7 @@ import Financial from '../image/Finance.jpg';
 import Agricultural from '../image/Agriculture.jpg';
 import Pharmaceuticals from '../image/Pharmaceutical.jpg';
 import Construction from '../image/Construction.png';
-import ItServices from '../image/ItServices.jpg';  // Corrected this line
+import ItServices from '../image/ItServices.jpg'; 
 
 const IndustryData = [
   {
