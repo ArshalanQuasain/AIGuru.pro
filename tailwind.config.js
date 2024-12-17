@@ -9,6 +9,7 @@ export default {
       colors: {
         primary: '#1b365d', // Dark Pink
         secondary: 'white', // Dark Blue
+        dustyRose: '#BE8A7C' //  dusky rose 
       },
     },
   },

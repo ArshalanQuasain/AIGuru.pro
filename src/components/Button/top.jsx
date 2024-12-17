@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: white ; 
+    background-color: #E0F2FE  ; 
     border: none;
     font-weight: 600;
     display: flex;
@@ -26,7 +26,7 @@ const StyledWrapper = styled.div`
     justify-content: center;
     box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
     cursor: pointer;
-    transition-duration: 0.3s;
+    transition: all 0.3s ease-in-out;
     overflow: hidden;
     position: fixed;
     bottom: 4rem;
@@ -40,13 +40,13 @@ const StyledWrapper = styled.div`
   }
 
   .svgIcon path {
-    fill: #be8a7d ;
+    fill: #1b365d ;
   }
 
   .button:hover {
     width: 140px;
     border-radius: 50px;
-    background-color: rgb(181, 160, 255) ; 
+    background-color: #38BDF8 ; 
   }
 
   .button:hover .svgIcon {
@@ -57,10 +57,10 @@ const StyledWrapper = styled.div`
     position: absolute;
     bottom: -20px;
     content: "Back to Top";
-    color: #be8a7d ;
+    color: #1b365d  ;
     font-size: 0px;
     opacity: 0;
-    transition-duration: 0.3s;
+    transition: all 0.3s ease-in-out;
   }
 
   .button:hover::before {
@@ -69,5 +69,6 @@ const StyledWrapper = styled.div`
     bottom: unset;
   }
 `;
+
 
 export default Up;

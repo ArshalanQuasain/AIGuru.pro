@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ title, description, features, buttonText, onButtonClick }) => {
   return (
-    <div className="relative p-6 rounded-lg shadow-md bg-gradient-to-br from-blue-50 to-blue-200 hover:from-blue-200 hover:to-blue-300 cursor-pointer transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-2xl">
+    <div className="relative p-6 rounded-lg shadow-md bg-gradient-to-br from-blue-50 to-blue-200">
       {/* Card Header */}
       <div className="p-6 border-b border-gray-100 w-full">
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h2>
@@ -23,14 +23,12 @@ const Card = ({ title, description, features, buttonText, onButtonClick }) => {
       <div className="p-4 border-t border-gray-100">
         <button
           onClick={onButtonClick}
-          className=" px-4 py-2 text-white bg-cyan-500 hover:bg-cyan-400 rounded-lg shadow-md transition-transform transform active:scale-95"
+          className="px-6 py-3 text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg shadow-lg text-lg transition-transform transform active:scale-95"
+
         >
           {buttonText}
-        </button>
+        </button> 
       </div>
-
-      {/* Hover Effect Overlay */}
-      <div className="absolute inset-0 rounded-lg bg-black opacity-0 hover:opacity-10 transition-opacity duration-300"></div>
     </div>
   );
 };
