@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgb(27, 54, 93) ; 
+    background-color: white ; 
     border: none;
     font-weight: 600;
     display: flex;
@@ -40,13 +40,13 @@ const StyledWrapper = styled.div`
   }
 
   .svgIcon path {
-    fill: #be8a7d ;
+    fill: #1b365d ;
   }
 
   .button:hover {
     width: 140px;
     border-radius: 50px;
-    background-color: rgb(27, 54, 93) ; 
+    background-color: rgb(181, 160, 255) ; 
   }
 
   .button:hover .svgIcon {
@@ -57,7 +57,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     bottom: -20px;
     content: "Back to Top";
-    color: #be8a7d ;
+    color: #1b365d  ;
     font-size: 0px;
     opacity: 0;
     transition-duration: 0.3s;
