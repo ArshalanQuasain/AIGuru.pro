@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #E0F2FE  ; 
+    background: linear-gradient(to right, #BE8A7C, #1E3A8A);
     border: none;
     font-weight: 600;
     display: flex;
@@ -40,13 +40,14 @@ const StyledWrapper = styled.div`
   }
 
   .svgIcon path {
-    fill: #1b365d ;
+    fill: #1b365d;
   }
 
   .button:hover {
     width: 140px;
     border-radius: 50px;
-    background-color: #38BDF8 ; 
+    background: linear-gradient(to right, #BE8A7C, #1E3A8A); /* Smooth gradient transition */
+    transform: translateY(-2px);
   }
 
   .button:hover .svgIcon {
@@ -57,7 +58,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     bottom: -20px;
     content: "Back to Top";
-    color: #1b365d  ;
+    color: #1b365d;
     font-size: 0px;
     opacity: 0;
     transition: all 0.3s ease-in-out;
