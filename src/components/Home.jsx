@@ -8,7 +8,7 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import ComputerIcon from '@mui/icons-material/Computer';
 import DevicesIcon from '@mui/icons-material/Devices';
 import StorageIcon from '@mui/icons-material/Storage';
-import Navbar from './navbar/Navbar';
+import favicon from "../components/image/favicon.ico.png"
 
 function Home() {
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ function Home() {
                             top,
                             left,
                             fontSize: size,
-                            color: 'rgba(255, 255, 255, 0.1)',
+                            color: 'rgba(255, 255, 255, 0.2)',
                         }}
                     />
                 ))}
@@ -64,14 +64,14 @@ function Home() {
             <div className="relative z-10">
                 <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
                     {/* Logo */}
-                    <Brain className="text-blue-300  mb-8 w-24 h-24" />
+                    <img src={favicon} alt="AIGuru Logo" className="text-blue-300 mb-8 w-24 h-24" />
                     <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-pink-900">
-                        AIGuru.pro
+                        AI Guru Solutions
                     </h1>
 
                     <p className=" mt-2 text-lg text-blue-200">
                         Transforming industries through cutting-edge AI solutions powered by <br />
-                        ChatGPT and Claude
+                        ChatGPT , Claude and LLaMa
                     </p>
                 </div>
 

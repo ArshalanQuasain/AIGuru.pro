@@ -1,17 +1,5 @@
 const data = [
     {
-      title: "Medical Report Analyzer",
-      description:
-        "Upload medical reports to extract key findings and provide simplified explanations",
-      features: [
-        "Natural Language Processing",
-        "Key Information Extraction",
-        "Simplified Summaries",
-      ],
-      buttonText: "Try Demo",
-      onButtonClick: () => alert("Medical Report Analyzer Demo"),
-    },
-    {
       title: "Symptom Checker",
       description: "Interactive chatbot for initial symptom assessment",
       features: [

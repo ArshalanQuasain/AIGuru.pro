@@ -30,8 +30,8 @@ const Navbar = () => {
                         to="/home"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600" 
-                                : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400" 
+                                ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                         }
                     >
                         Home
@@ -40,8 +40,8 @@ const Navbar = () => {
                         to="/about"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600"
-                                : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                         }
                     >
                         About
@@ -50,8 +50,8 @@ const Navbar = () => {
                         to="/contact"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600"
-                                : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                         }
                     >
                         Contact
@@ -111,8 +111,8 @@ const Navbar = () => {
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600"
-                                        : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                                 }
                             >
                                 Home
@@ -122,8 +122,8 @@ const Navbar = () => {
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600"
-                                        : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                                 }
                             >
                                 About
@@ -133,8 +133,8 @@ const Navbar = () => {
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-lg border-b-2 border-blue-600"
-                                        : "text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-500 text-lg hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
+                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
                                 }
                             >
                                 Contact
