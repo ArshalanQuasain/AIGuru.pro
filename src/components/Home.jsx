@@ -1,5 +1,4 @@
 import React from 'react';
-import { Brain } from 'lucide-react';
 import Data from './Data/industryData';
 import { useNavigate } from 'react-router-dom';
 import Up from './Button/top';
