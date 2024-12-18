@@ -1,26 +1,36 @@
 import React from "react";
+
 const Card = ({ title, description, features, buttonText, onButtonClick }) => {
-    return (
-      <div className="flex flex-col items-start m-2 border-2 p-6 border-secondary rounded-lg w-full bg-transparent cursor-pointer shadow-md transform transition-transform duration-300 hover:translate-y-2">
-        <h2 className="text-lg font-semibold text-secondary mb-2">{title}</h2>
-        <p className="text-sm text-secondary mb-4">{description}</p>
-        <div className="mb-4">
-          <h4 className="font-medium text-secondary">Key Features:</h4>
-          <ul className="list-disc list-inside text-secondary">
-            {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        </div>
+  return (
+    <div className="relative p-6 rounded-lg shadow-md bg-gradient-to-br from-blue-50 to-blue-200">
+      {/* Card Header */}
+      <div className="p-6 border-b border-gray-100 w-full">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">{title}</h2>
+        <p className="text-sm text-gray-600">{description}</p>
+      </div>
+
+      {/* Key Features */}
+      <div className="p-6 flex-1 w-full">
+        <h4 className="text-md font-semibold text-gray-700 mb-2">Key Features:</h4>
+        <ul className="list-disc list-inside text-gray-600 space-y-1 pl-1">
+          {features.map((feature, index) => (
+            <li key={index} className="text-sm">{feature}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Card Footer */}
+      <div className="p-4 border-t border-gray-100">
         <button
           onClick={onButtonClick}
-          className="mt-auto px-4 py-2 bg-secondary text-primary rounded hover:bg-opacity-90 transition"
+          className="px-6 py-3 text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 rounded-lg shadow-lg text-lg transition-transform transform active:scale-95"
+
         >
           {buttonText}
-        </button>
+        </button> 
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
+
 export default Card;
-  

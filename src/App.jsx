@@ -7,15 +7,23 @@ import AgriculturalSection from './components/Sec/AgricultureSection';
 import PharmaceuticalsSection from './components/Sec/PharmaceuticalsSection';
 import ConstructionSection from './components/Sec/ConstructionSection';
 import ITServicesSection from './components/Sec/itServiceSection';
+import Contact from './components/contact/Contact';
+import About from './components/about/About';
+import Navbar from './components/navbar/Navbar';
+import Footer from './components/fotter/Fotter';
 
 function App() {
   return (
-    <Router>
+    <Router> 
+      <Navbar/>
       <Routes>
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/:param" element={<SectionScroll />} />
         <Route path="/" element={<SectionScroll />} />
       </Routes>
-    </Router>
+      <Footer/>
+    </Router >
   );
 }
 
@@ -42,17 +50,15 @@ const SectionScroll = () => {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-  }, [location.pathname, param]); 
+  }, [location.pathname, param]);
 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
       threshold: 0.5, // Trigger when 50% of the section is visible
-    }; 
+    };
 
-    // its a call back function 
-    
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -61,7 +67,7 @@ const SectionScroll = () => {
       });
     };
 
-    const observer = new IntersectionObserver(handleIntersection, observerOptions); -
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
     sections.forEach(({ id }) => {
       const sectionElement = document.getElementById(id);
@@ -73,7 +79,7 @@ const SectionScroll = () => {
     return () => {
       observer.disconnect(); // Clean up observer when component unmounts
     };
-  }, []); 
+  }, []);
 
   return (
     <div>
