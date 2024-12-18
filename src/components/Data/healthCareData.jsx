@@ -22,6 +22,6 @@ const data = [
       onButtonClick: () => alert("Medical Literature Assistant Demo"),
     },
   ];
-  
+
   export default data;
   

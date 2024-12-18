@@ -65,7 +65,7 @@ function Home() {
                 <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
                     {/* Logo */}
                     <img src={favicon} alt="AIGuru Logo" className="text-blue-300 mb-8 w-24 h-24" />
-                    <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-pink-900">
+                    <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-50 to-cyan-100">
                         AI Guru Solutions
                     </h1>
 
@@ -77,7 +77,7 @@ function Home() {
 
                 {/* Industries Section */}
                 <div className="w-full mx-auto py-6 px-4 md:px-16 lg:px-32">
-                    <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 drop-shadow-lg mb-8 text-center">
+                    <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-200 drop-shadow-lg mb-8 text-center">
                         Industries We Serve
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
