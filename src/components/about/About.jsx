@@ -43,6 +43,7 @@ function About() {
         </div>
       </div>
 
+
       {/* What Sets Us Apart */}
       <div className="py-12 px-4 sm:px:8 md:px-16">
         <h2 className="text-4xl font-semibold text-start md:text-start  text-gray-700 mb-8">What Sets Us Apart</h2>
