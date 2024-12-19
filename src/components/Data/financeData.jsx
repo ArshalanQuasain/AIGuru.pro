@@ -8,7 +8,8 @@ const financialData = [
         "Market Trend Analysis",
       ],
       buttonText: "Try Demo",
-      onButtonClick: () => alert("Investment Portfolio Analyzer Demo"),
+      link : "/finance-bot",
+      // onButtonClick: () => alert("Investment Portfolio Analyzer Demo"),
     },
     {
       title: "Financial Document Parser",
