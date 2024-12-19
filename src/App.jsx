@@ -14,6 +14,7 @@ import Footer from "./components/fotter/Fotter";
 import CodeAnalysis from "./components/CodeAnalysisBot/CodeAnalysis";
 import ConstructionBot from "./components/constructionBot/ConstructionBot"
 import Chatbot from "./components/healthecareBot/Chatbot"
+import PharmaBot from "./components/pharmaBot/PharmaBot";
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
 // Separate Routes and Footer logic into another component
 const AppRoutes = () => {
   const location = useLocation(); 
-  const hideFooterRoutes = ["/code-review", "/construction-bot","/healthcare-bot"];
+  const hideFooterRoutes = ["/code-review", "/construction-bot","/healthcare-bot","/pharma-bot"];
 
   // Function to check if the current path should hide the footer
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
@@ -43,7 +44,7 @@ const AppRoutes = () => {
         <Route path="/code-review" element={<CodeReviewPage />} />
         <Route path="/construction-bot" element={<ConstructionBot />} />
         <Route path="/healthcare-bot" element={<Chatbot />} />
-
+        <Route path="/pharma-bot" element={<PharmaBot />} />
         <Route path="/" element={<SectionScroll />} />
         <Route path="/:param" element={<SectionScroll />} />
       </Routes>

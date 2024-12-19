@@ -8,7 +8,8 @@ const pharmaceuticalData = [
         "Dosage Recommendations",
       ],
       buttonText: "Try Demo",
-      onButtonClick: () => alert("Drug Interaction Checker Demo"),
+      link : '/pharma-bot',
+      // onButtonClick: () => alert("Drug Interaction Checker Demo"),
     },
     {
       title: "Clinical Trial Analyzer",
