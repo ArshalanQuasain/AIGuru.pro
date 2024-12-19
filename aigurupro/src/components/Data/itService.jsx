@@ -8,8 +8,7 @@ const itServicesData = [
       "Security Scanning",
     ],
     buttonText: "Try Demo",
-    link: "/code-review"
-    // onButtonClick: () => alert("Code Review Assistant Demo"),
+    link: "/code-review"  , 
   },
   {
     title: "System Architecture Advisor",

@@ -21,6 +21,7 @@ function IndustrySection({ Icon, title, brief, Data }) {
                         features={item.features}
                         buttonText={item.buttonText}
                         onButtonClick={item.onButtonClick}
+                        link={item.link}
                     />
                 ))}
             </div>
