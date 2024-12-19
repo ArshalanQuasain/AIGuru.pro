@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom"; // Import NavLink for active state
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
     return (
@@ -79,7 +79,7 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
                         <div className="flex space-x-4">
                             <a
-                                href="https://facebook.com"
+                                href="http://facebook.com/profile.php?id=61568381275729"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
@@ -87,15 +87,15 @@ const Footer = () => {
                                 <FaFacebook size={24} />
                             </a>
                             <a
-                                href="https://twitter.com"
+                                href="https://www.youtube.com/@goaiguru"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
                             >
-                                <FaTwitter size={24} />
+                                <FaYoutube size={24} />
                             </a>
                             <a
-                                href="https://instagram.com"
+                                href="https://www.instagram.com/aiguruin/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
@@ -103,7 +103,7 @@ const Footer = () => {
                                 <FaInstagram size={24} />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href="https://www.linkedin.com/company/ai-guru-in"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"

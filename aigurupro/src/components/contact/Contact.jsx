@@ -1,54 +1,41 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from 'react';
 
-const Contact = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const ContactUs = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when the page loads
+  }, []);  
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Call it initially
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Dynamically load the script for embedding the HubSpot form
-    const script = document.createElement("script");
-    script.src = "//js.hsforms.net/forms/embed/v2.js";
-    script.type = "text/javascript";
-    script.charset = "utf-8";
-    script.onload = () => {
-      if (window.hbspt) {
+    // Only add the HubSpot form script once when component is loaded
+    if (!document.querySelector('#hubspotForm > iframe')) {
+      const script = document.createElement('script');
+      script.src = "//js.hsforms.net/forms/embed/v2.js";
+      script.charset = "utf-8";
+      script.type = "text/javascript";
+      script.onload = () => {
         window.hbspt.forms.create({
+          region: "na1",
           portalId: "47638375",
-          formId: "05d0a25e-3ff4-435b-b0f3-1f0bf5ad4897",
+          formId: "0edfb5a6-1b23-4220-b4bc-7904a82b7fb8",
+          target: "#hubspotForm"
         });
-      }
-    };
-    document.body.appendChild(script);
+      };
 
-    return () => {
-      // Cleanup script if the component is unmounted
-      document.body.removeChild(script);
-    };
+      document.body.appendChild(script);
+      
+      return () => {
+        // Cleanup by removing the script when component is unmounted
+        document.body.removeChild(script);
+      };
+    }
   }, []);
 
   return (
-    <section className="bg-white border-t text-gray-800 py-12 h-screen" id="contact">
-      <div className="container mx-auto px-6 py-12 flex flex-col justify-center h-full">
-        <h2 className={`text-4xl mb-8 ${isMobile ? 'text-center' : 'text-left'}`}>
-          Contact Me
-        </h2>
-        {/* Placeholder for the embedded form */}
-        <div id="hs-form" className="w-full"></div>
-      </div>
-    </section>
+    <div className="flex flex-col justify-center w-full m-2 items-center min-h-screen bg-gray-100 py-10 font-sans">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-8 text-center">Contact Us</h1>
+      <div id="hubspotForm" className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out"></div>
+    </div>
   );
 };
 
-export default Contact;
+export default ContactUs;
