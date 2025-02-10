@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home";
@@ -12,29 +13,42 @@ import About from "./components/about/About";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/fotter/Fotter";
 import CodeAnalysis from "./components/CodeAnalysisBot/CodeAnalysis";
-import ConstructionBot from "./components/constructionBot/ConstructionBot"
-import Chatbot from "./components/healthecareBot/Chatbot"
+import ConstructionBot from "./components/constructionBot/ConstructionBot";
+import Chatbot from "./components/healthecareBot/Chatbot";
 import PharmaBot from "./components/pharmaBot/PharmaBot";
-import FinancialBot from "./components/financialBot/FinancialBot"
+import FinancialBot from "./components/financialBot/FinancialBot";
+
+// Import Material UI theme provider, CssBaseline and your custom theme
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
 
 const App = () => {
   return (
-    <Router>
-      {/* Navbar */}
-      <Navbar />
-
-      {/* Routes */}
-      <AppRoutes />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        {/* Navbar */}
+        <Navbar />
+        {/* Routes */}
+        <AppRoutes />
+      </Router>
+    </ThemeProvider>
   );
 };
 
 // Separate Routes and Footer logic into another component
 const AppRoutes = () => {
-  const location = useLocation(); 
-  const hideFooterRoutes = ["/code-review", "/construction-bot","/healthcare-bot","/pharma-bot","/finance-bot"];
+  const location = useLocation();
+  const hideFooterRoutes = [
+    "/code-review",
+    "/construction-bot",
+    "/healthcare-bot",
+    "/pharma-bot",
+    "/finance-bot",
+  ];
 
-  // Function to check if the current path should hide the footer
+  // Check if the current path should hide the footer
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
@@ -47,11 +61,9 @@ const AppRoutes = () => {
         <Route path="/healthcare-bot" element={<Chatbot />} />
         <Route path="/pharma-bot" element={<PharmaBot />} />
         <Route path="/finance-bot" element={<FinancialBot />} />
-
         <Route path="/" element={<SectionScroll />} />
         <Route path="/:param" element={<SectionScroll />} />
       </Routes>
-
       {/* Conditionally render Footer */}
       {shouldShowFooter && <Footer />}
     </>
@@ -79,7 +91,6 @@ const SectionScroll = () => {
 
   React.useEffect(() => {
     const id = window.location.pathname.replace("/", "").toLowerCase();
-
     if (id) {
       const section = document.getElementById(id);
       if (section) {
@@ -91,11 +102,7 @@ const SectionScroll = () => {
   return (
     <div>
       {sections.map(({ id, Component }) => (
-        <div
-          id={id}
-          key={id}
-          className="min-h-screen p-8 border-b border-secondary"
-        >
+        <div id={id} key={id} className="min-h-screen p-8 border-b border-secondary">
           <Component />
         </div>
       ))}
