@@ -22,18 +22,34 @@ import SendIcon from "@mui/icons-material/Send";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 const FinancialBot = () => {
+  // Overall tab index: 0 = Ask a Question, 1 = Upload Documents (Summarize), 2 = Chat with Document (persistent)
   const [tab, setTab] = useState(0);
+
+  // Tab 0 (Ask a Question using Cerebras)
   const [prompt, setPrompt] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const [fileHistory, setFileHistory] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const chatEndRef = useRef(null);
 
+  // Tab 1 (Upload Documents to Summarize)
+  const [files, setFiles] = useState([]);
+  const [fileHistory, setFileHistory] = useState([]);
+
+  // Tab 2 (Chat with Document persistently)
+  const [docChatHistory, setDocChatHistory] = useState([]);
+  const [docFile, setDocFile] = useState(null);
+  const [docContent, setDocContent] = useState(""); // persistent extracted document text
+  const [docQuery, setDocQuery] = useState("");
+
+  // Loading state for all tabs
+  const [loading, setLoading] = useState(false);
+
+  const chatEndRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
   const handleTabChange = (event, newValue) => setTab(newValue);
 
+  // -----------------------
+  // Tab 0: Ask a Question (Cerebras Chat)
+  // -----------------------
   const handleSubmit = async () => {
     if (!prompt) return;
     setChatHistory([...chatHistory, { type: "user", message: prompt }]);
@@ -57,6 +73,15 @@ const FinancialBot = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  // -----------------------
+  // Tab 1: Upload Documents (Summarize)
+  // -----------------------
   const handleFileUpload = async () => {
     if (!files.length) return;
 
@@ -70,7 +95,6 @@ const FinancialBot = () => {
     Array.from(files).forEach((file) => formData.append("documents", file));
 
     setLoading(true);
-
     try {
       const res = await axios.post(`${API_URL}/finance/summarize`, formData);
       setFileHistory((prev) => [
@@ -89,15 +113,84 @@ const FinancialBot = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
+  // -----------------------
+  // Tab 2: Persistent Chat with Document
+  // -----------------------
+  // First, upload the document and store its extracted text
+  const handleDocUpload = async () => {
+    if (!docFile) return;
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("document", docFile);
+    try {
+      const res = await axios.post(`${API_URL}/finance/uploadDocument`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setDocContent(res.data.docContent);
+      setDocChatHistory((prev) => [
+        ...prev,
+        {
+          type: "bot",
+          message:
+            "Document uploaded successfully. You can now ask questions about it.",
+        },
+      ]);
+    } catch (error) {
+      console.error("Error uploading document:", error);
+      setDocChatHistory((prev) => [
+        ...prev,
+        {
+          type: "bot",
+          message: "Failed to upload document. Please try again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+      setDocFile(null);
+    }
+  };
+
+  // Now, chat with the persistent document (send the stored docContent along with the query)
+  const handleDocChatSubmit = async () => {
+    if (!docContent || !docQuery) return;
+    setDocChatHistory((prev) => [
+      ...prev,
+      { type: "user", message: docQuery },
+    ]);
+    setLoading(true);
+    try {
+      const res = await axios.post(`${API_URL}/finance/chatpdf`, {
+        query: docQuery,
+        docContent: docContent,
+      });
+      setDocChatHistory((prev) => [
+        ...prev,
+        { type: "bot", message: res.data.answer },
+      ]);
+    } catch (error) {
+      console.error("Error:", error);
+      setDocChatHistory((prev) => [
+        ...prev,
+        {
+          type: "bot",
+          message: "Something went wrong. Please try again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+      setDocQuery("");
+    }
+  };
+
+  const handleDocChatKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleSubmit();
+      handleDocChatSubmit();
     }
   };
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatHistory, fileHistory, loading]);
+  }, [chatHistory, fileHistory, docChatHistory, loading]);
 
   return (
     <Box
@@ -129,12 +222,7 @@ const FinancialBot = () => {
               mb: 3,
             }}
           >
-            <AccountBalanceIcon
-              sx={{
-                fontSize: 40,
-                color: "#00796b",
-              }}
-            />
+            <AccountBalanceIcon sx={{ fontSize: 40, color: "#00796b" }} />
             <Typography
               variant="h4"
               align="center"
@@ -179,9 +267,16 @@ const FinancialBot = () => {
                   "&.Mui-selected": { fontWeight: "bold", color: "#ffffff" },
                 }}
               />
+              <Tab
+                label="Chat with Document"
+                sx={{
+                  "&.Mui-selected": { fontWeight: "bold", color: "#ffffff" },
+                }}
+              />
             </Tabs>
           </AppBar>
 
+          {/* ----------------- Tab 0: Ask a Question ----------------- */}
           {tab === 0 && (
             <Box
               p={3}
@@ -217,7 +312,7 @@ const FinancialBot = () => {
                           maxWidth: "70%",
                           padding: 1,
                           background:
-                            chat.type === "user" ? "#80cbc4" : "#e0f7fa",
+                            chat.type === "user" ? "#80cbc4" : "#e0f7ea",
                           borderRadius: 2,
                           color: "#004d40",
                         }}
@@ -235,7 +330,7 @@ const FinancialBot = () => {
                         sx={{
                           maxWidth: "70%",
                           padding: 1,
-                          background: "#e0f7fa",
+                          background: "#e0f7ea",
                           borderRadius: 2,
                           display: "flex",
                           alignItems: "center",
@@ -249,7 +344,6 @@ const FinancialBot = () => {
                   <div ref={chatEndRef} />
                 </List>
               </Paper>
-
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <TextField
                   placeholder="Type your message..."
@@ -281,7 +375,120 @@ const FinancialBot = () => {
             </Box>
           )}
 
-          {tab === 1 && (
+{/** ----------------- Tab 1: Upload Documents (Summarize) ----------------- **/}
+{tab === 1 && (
+  <Box
+    p={3}
+    sx={{
+      background: "#ffffff",
+      borderRadius: 2,
+      display: "flex",
+      flexDirection: "column",
+      gap: 2,
+    }}
+  >
+    <Paper
+      elevation={0}
+      sx={{
+        height: 300,
+        overflowY: "auto",
+        padding: 2,
+        background: "#f1f8e9",
+        borderRadius: 2,
+      }}
+    >
+      <List>
+        {fileHistory.map((item, index) => (
+          <ListItem
+            key={index}
+            sx={{
+              justifyContent:
+                item.type === "user" ? "flex-end" : "flex-start",
+            }}
+          >
+            <Box
+              sx={{
+                maxWidth: "70%",
+                padding: 1,
+                background:
+                  item.type === "user" ? "#80cbc4" : "#e0f7ea",
+                borderRadius: 2,
+                color: "#004d40",
+              }}
+            >
+              <ListItemText
+                primary={item.message}
+                sx={{ wordWrap: "break-word" }}
+              />
+            </Box>
+          </ListItem>
+        ))}
+        {loading && (
+          <ListItem sx={{ justifyContent: "flex-start" }}>
+            <Box
+              sx={{
+                maxWidth: "70%",
+                padding: 1,
+                background: "#e0f7ea",
+                borderRadius: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress size={20} sx={{ color: "#26a69a" }} />
+            </Box>
+          </ListItem>
+        )}
+        <div ref={chatEndRef} />
+      </List>
+    </Paper>
+    <input
+      type="file"
+      multiple
+      onChange={(e) => setFiles(e.target.files)}
+      style={{ display: "none" }}
+      id="upload-button"
+    />
+    <label htmlFor="upload-button">
+      <Button
+        variant="outlined"
+        startIcon={<CloudUploadIcon />}
+        component="span"
+        fullWidth
+        sx={{
+          mt: 1,
+          borderColor: "#80cbc4",
+          color: "#00796b",
+          "&:hover": { background: "#e0f7ea" },
+        }}
+      >
+        Choose Files
+      </Button>
+    </label>
+    {files && files.length > 0 && (
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        Selected files: {Array.from(files).map(file => file.name).join(", ")}
+      </Typography>
+    )}
+    <Button
+      variant="contained"
+      onClick={handleFileUpload}
+      fullWidth
+      sx={{
+        mt: 2,
+        background: "#26a69a",
+        "&:hover": { background: "#00796b" },
+        fontWeight: "bold",
+      }}
+    >
+      Summarize
+    </Button>
+  </Box>
+)}
+
+          {/* ----------------- Tab 2: Chat with Document (Persistent) ----------------- */}
+          {tab === 2 && (
             <Box
               p={3}
               sx={{
@@ -303,7 +510,7 @@ const FinancialBot = () => {
                 }}
               >
                 <List>
-                  {fileHistory.map((item, index) => (
+                  {docChatHistory.map((item, index) => (
                     <ListItem
                       key={index}
                       sx={{
@@ -316,7 +523,7 @@ const FinancialBot = () => {
                           maxWidth: "70%",
                           padding: 1,
                           background:
-                            item.type === "user" ? "#80cbc4" : "#e0f7fa",
+                            item.type === "user" ? "#80cbc4" : "#e0f7ea",
                           borderRadius: 2,
                           color: "#004d40",
                         }}
@@ -334,7 +541,7 @@ const FinancialBot = () => {
                         sx={{
                           maxWidth: "70%",
                           padding: 1,
-                          background: "#e0f7fa",
+                          background: "#e0f7ea",
                           borderRadius: 2,
                           display: "flex",
                           alignItems: "center",
@@ -349,42 +556,86 @@ const FinancialBot = () => {
                 </List>
               </Paper>
 
-              <input
-                type="file"
-                multiple
-                onChange={(e) => setFiles(e.target.files)}
-                style={{ display: "none" }}
-                id="upload-button"
-              />
-              <label htmlFor="upload-button">
-                <Button
-                  variant="outlined"
-                  startIcon={<CloudUploadIcon />}
-                  component="span"
-                  fullWidth
-                  sx={{
-                    mt: 1,
-                    borderColor: "#80cbc4",
-                    color: "#00796b",
-                    "&:hover": { background: "#e0f7fa" },
-                  }}
-                >
-                  Choose Files
-                </Button>
-              </label>
-              <Button
-                variant="contained"
-                onClick={handleFileUpload}
-                fullWidth
-                sx={{
-                  mt: 2,
-                  background: "#26a69a",
-                  "&:hover": { background: "#00796b" },
-                  fontWeight: "bold",
-                }}
-              >
-                Summarize
-              </Button>
+              {/* If no document has been uploaded yet, show the upload section */}
+              {!docContent ? (
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                  <input
+                    type="file"
+                    accept=".pdf,.docx,.txt"
+                    onChange={(e) => setDocFile(e.target.files[0])}
+                    style={{ display: "none" }}
+                    id="doc-upload-button"
+                  />
+                  <label htmlFor="doc-upload-button">
+                    <Button
+                      variant="outlined"
+                      startIcon={<CloudUploadIcon />}
+                      component="span"
+                      fullWidth
+                      sx={{
+                        borderColor: "#80cbc4",
+                        color: "#00796b",
+                        "&:hover": { background: "#e0f7ea" },
+                      }}
+                    >
+                      {docFile ? docFile.name : "Choose Document to Upload"}
+                    </Button>
+                  </label>
+                  <Button
+                    variant="contained"
+                    onClick={handleDocUpload}
+                    fullWidth
+                    sx={{
+                      background: "#26a69a",
+                      "&:hover": { background: "#00796b" },
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Upload Document
+                  </Button>
+                </Box>
+              ) : (
+                <>
+                  {/* If a document is already uploaded, allow the user to ask questions */}
+                  <TextField
+                    placeholder="Ask a question about the document..."
+                    value={docQuery}
+                    onChange={(e) => setDocQuery(e.target.value)}
+                    onKeyPress={handleDocChatKeyPress}
+                    fullWidth
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "20px",
+                        "& fieldset": { borderColor: "#80cbc4" },
+                      },
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    onClick={handleDocChatSubmit}
+                    fullWidth
+                    sx={{
+                      background: "#26a69a",
+                      "&:hover": { background: "#00796b" },
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Send
+                  </Button>
+                  {/* Optionally, allow the user to reset and upload a new document */}
+                  <Button
+                    variant="text"
+                    onClick={() => {
+                      setDocContent("");
+                      setDocChatHistory([]);
+                    }}
+                    fullWidth
+                    sx={{ color: "#00796b" }}
+                  >
+                    Reset Document
+                  </Button>
+                </>
+              )}
             </Box>
           )}
         </CardContent>
