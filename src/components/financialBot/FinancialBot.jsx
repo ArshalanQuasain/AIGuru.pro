@@ -250,7 +250,7 @@ const FinancialBot = () => {
               }}
             >
               <Tab label="Ask a Question" sx={{ "&.Mui-selected": { fontWeight: "bold", color: "#fff" } }} />
-              <Tab label="Upload Documents" sx={{ "&.Mui-selected": { fontWeight: "bold", color: "#fff" } }} />
+              <Tab label="Document Summary" sx={{ "&.Mui-selected": { fontWeight: "bold", color: "#fff" } }} />
               <Tab label="Chat with Document" sx={{ "&.Mui-selected": { fontWeight: "bold", color: "#fff" } }} />
             </Tabs>
           </AppBar>

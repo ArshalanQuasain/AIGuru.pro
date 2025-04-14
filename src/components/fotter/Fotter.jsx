@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-800 text-white py-8 z-50 relative">
+        <footer className="bg-gray-800 text-white py-8 z-50 mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
@@ -19,7 +19,7 @@ const Footer = () => {
                             About Us
                         </NavLink>
                         <p className="text-sm text-gray-300">
-                            We are committed to delivering the best products and services to our customers...
+                            We are committed to delivering the best AI-powered solutions for businesses, helping you optimize operations and increase profitability through cutting-edge technology.
                         </p>
                     </div>
                     <div>
@@ -79,34 +79,38 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
                         <div className="flex space-x-4">
                             <a
-                                href="https://facebook.com"
+                                href="https://www.facebook.com/aiguruhq"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
+                                aria-label="Facebook"
                             >
                                 <FaFacebook size={24} />
                             </a>
                             <a
-                                href="https://twitter.com"
+                                href="https://twitter.com/aiguruhq"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
+                                aria-label="Twitter"
                             >
                                 <FaTwitter size={24} />
                             </a>
                             <a
-                                href="https://instagram.com"
+                                href="https://instagram.com/aiguruhq"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
+                                aria-label="Instagram"
                             >
                                 <FaInstagram size={24} />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href="https://linkedin.com/company/aiguruhq"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-cyan-400 transition"
+                                aria-label="LinkedIn"
                             >
                                 <FaLinkedin size={24} />
                             </a>
@@ -116,7 +120,7 @@ const Footer = () => {
                 <div className="border-t border-gray-700 my-8"></div>
                 <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400">
                     <p>&copy; {new Date().getFullYear()} AIGuru. All Rights Reserved.</p>
-                    <div className="space-x-4">
+                    <div className="space-x-4 mt-4 sm:mt-0">
                         <NavLink
                             to="/terms"
                             className={({ isActive }) =>

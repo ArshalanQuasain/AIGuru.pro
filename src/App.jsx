@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import HealthCareSection from "./components/Sec/HealthCareSection";
 import FinancialSection from "./components/Sec/FinanceSection";
 import AgriculturalSection from "./components/Sec/AgricultureSection";
+import AgricultureBot from './components/agricultureBot/AgricultureBot';
 import PharmaceuticalsSection from "./components/Sec/PharmaceuticalsSection";
 import ConstructionSection from "./components/Sec/ConstructionSection";
 import ITServicesSection from "./components/Sec/itServiceSection";
@@ -46,27 +47,31 @@ const AppRoutes = () => {
     "/healthcare-bot",
     "/pharma-bot",
     "/finance-bot",
+    "/agriculture-bot", // Added agriculture bot to the list
   ];
 
   // Check if the current path should hide the footer
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
-    <>
-      <Routes>
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/code-review" element={<CodeReviewPage />} />
-        <Route path="/construction-bot" element={<ConstructionBot />} />
-        <Route path="/healthcare-bot" element={<Chatbot />} />
-        <Route path="/pharma-bot" element={<PharmaBot />} />
-        <Route path="/finance-bot" element={<FinancialBot />} />
-        <Route path="/" element={<SectionScroll />} />
-        <Route path="/:param" element={<SectionScroll />} />
-      </Routes>
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/code-review" element={<CodeReviewPage />} />
+          <Route path="/construction-bot" element={<ConstructionBot />} />
+          <Route path="/healthcare-bot" element={<Chatbot />} />
+          <Route path="/pharma-bot" element={<PharmaBot />} />
+          <Route path="/finance-bot" element={<FinancialBot />} />
+          <Route path="/agriculture-bot" element={<AgricultureBot />} />
+          <Route path="/" element={<SectionScroll />} />
+          <Route path="/:param" element={<SectionScroll />} />
+        </Routes>
+      </main>
       {/* Conditionally render Footer */}
       {shouldShowFooter && <Footer />}
-    </>
+    </div>
   );
 };
 
