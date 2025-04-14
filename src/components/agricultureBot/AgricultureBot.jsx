@@ -10,11 +10,14 @@ import {
   InputAdornment,
   Chip,
   Divider,
+  Alert,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import AgricultureIcon from "@mui/icons-material/Agriculture";
 import GrassIcon from "@mui/icons-material/Grass";
+import WarningIcon from "@mui/icons-material/Warning";
+import ChatIcon from "@mui/icons-material/Chat";
 import { styled } from "@mui/material/styles";
 import agricultureBg from "../../assets/agriculture_bg.jpg"; // You'll need to add this image
 
@@ -59,6 +62,11 @@ const ActionDifficulty = styled(Chip)(({ difficulty }) => ({
   fontSize: "0.7rem",
 }));
 
+const OffTopicBanner = styled(Alert)(({ theme }) => ({
+  margin: theme.spacing(1, 0),
+  borderRadius: "4px",
+}));
+
 const AgricultureBot = () => {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
@@ -66,6 +74,7 @@ const AgricultureBot = () => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [activeUseCase, setActiveUseCase] = useState(null);
+  const [isOffTopic, setIsOffTopic] = useState(false);
 
   const messagesEndRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -119,6 +128,22 @@ const AgricultureBot = () => {
     setMessages([welcomeMessage]);
   }, []);
 
+  // Check if a message is likely agricultural or not
+  const checkIfAgricultural = (text) => {
+    const agriKeywords = [
+      'crop', 'farm', 'agricultur', 'harvest', 'seed', 'irrigation', 'fertilizer',
+      'soil', 'yield', 'pesticide', 'cultivation', 'planting', 'rice', 'wheat',
+      'maize', 'corn', 'sugarcane', 'ROI', 'supply chain', 'market', 'commodity',
+      'pricing', 'farmer', 'hectare', 'acre', 'organic', 'monsoon', 'rainfall',
+      'seasonal', 'productivity', 'processing', 'storage', 'distribution', 'export'
+    ];
+    
+    const lowerText = text.toLowerCase();
+    
+    // This is a simple check - in reality we're using the backend for this detection
+    return agriKeywords.some(keyword => lowerText.includes(keyword));
+  };
+
   // Handle text-based question
   const handleSend = async () => {
     if (!question.trim()) {
@@ -144,11 +169,22 @@ const AgricultureBot = () => {
       }
 
       const data = await response.json();
+      
+      // Check if the response is agriculture-related (using the flag from backend)
+      const isAgricultureRelated = data.isAgricultureRelated !== undefined 
+        ? data.isAgricultureRelated 
+        : checkIfAgricultural(question); // Fallback if backend doesn't provide the flag
+      
+      // Update off-topic state
+      setIsOffTopic(!isAgricultureRelated);
+      
       const botMessage = {
         role: "bot",
         content: data.reply || "I couldn't process that request. Please try again.",
-        formatted: formatBotResponse(data.reply)
+        formatted: isAgricultureRelated ? formatBotResponse(data.reply) : null,
+        isOffTopic: !isAgricultureRelated
       };
+      
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error:", err);
@@ -301,11 +337,22 @@ const AgricultureBot = () => {
       }
 
       const data = await response.json();
+      
+      // Check if the file is agriculture-related (using the flag from backend)
+      const isAgricultureRelated = data.isAgricultureRelated !== undefined 
+        ? data.isAgricultureRelated 
+        : true; // Assume relevant by default if backend doesn't provide the flag
+      
+      // Update off-topic state
+      setIsOffTopic(!isAgricultureRelated);
+      
       const botMessage = {
         role: "bot",
         content: data.result || "No insights available from this document.",
-        formatted: formatBotResponse(data.result)
+        formatted: isAgricultureRelated ? formatBotResponse(data.result) : null,
+        isOffTopic: !isAgricultureRelated
       };
+      
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error:", err);
@@ -324,6 +371,7 @@ const AgricultureBot = () => {
   // Handle demo use case selection
   const handleUseCaseClick = (useCase) => {
     setActiveUseCase(useCase);
+    setIsOffTopic(false); // Reset off-topic state when selecting a use case
 
     // Create user message for document upload
     const userMessage = {
@@ -424,6 +472,9 @@ Based on this agricultural document, provide a brief acknowledgment that you've 
   // Handle demo query with real AI processing
   const handleDemoQuery = (query) => {
     if (!activeUseCase) return;
+
+    // Reset off-topic state for demo queries
+    setIsOffTopic(false);
 
     // Create user message
     const userMessage = {
@@ -674,6 +725,25 @@ Please provide a detailed analysis with:
         ))}
       </Box>
 
+      {/* Off-Topic Banner - Appears when the conversation goes off agricultural topics */}
+      {isOffTopic && (
+        <OffTopicBanner 
+          severity="info"
+          icon={<ChatIcon />}
+          sx={{ 
+            mx: 2, 
+            mt: 1, 
+            backgroundColor: "rgba(33, 150, 243, 0.1)",
+            border: "1px solid rgba(33, 150, 243, 0.3)"
+          }}
+        >
+          <Typography variant="body2">
+            <strong>Conversational Mode:</strong> You're now chatting outside the agricultural demo context. 
+            Responses will be conversational rather than in the structured business format.
+          </Typography>
+        </OffTopicBanner>
+      )}
+
       {/* Chat Container */}
       <Box
         sx={{
@@ -704,11 +774,17 @@ Please provide a detailed analysis with:
                   ? "#E5BB4B" // Wheat gold for user
                   : msg.isError
                     ? "#f8d7da" // Light red for errors
-                    : "#F5F5DC", // Light beige for bot
+                    : msg.isOffTopic 
+                      ? "#e3f2fd" // Light blue for off-topic responses
+                      : "#F5F5DC", // Light beige for bot
                 color: "#333",
                 borderRadius: "12px",
                 wordBreak: "break-word",
-                borderLeft: msg.role === "bot" ? "4px solid #1E5631" : "none", // Deep green accent for bot
+                borderLeft: msg.role === "bot" 
+                  ? msg.isOffTopic 
+                    ? "4px solid #2196f3" // Blue accent for off-topic
+                    : "4px solid #1E5631" // Deep green accent for on-topic
+                  : "none",
               }}
             >
               {msg.file && (
@@ -729,6 +805,12 @@ Please provide a detailed analysis with:
                     }}
                   />
                 </Box>
+              )}
+
+              {msg.isOffTopic && msg.role === "bot" && (
+                <Typography variant="caption" fontStyle="italic" display="block" mb={1} color="text.secondary">
+                  <ChatIcon sx={{ fontSize: '0.8rem', mr: 0.5 }} /> Conversational mode
+                </Typography>
               )}
 
               {msg.isDemo && msg.role === "user" && (
@@ -785,6 +867,40 @@ Please provide a detailed analysis with:
         <div ref={messagesEndRef} />
       </Box>
 
+      {/* Return to Demo Button - Shows when in off-topic mode */}
+      {isOffTopic && (
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          p: 1, 
+          backgroundColor: 'rgba(255,255,255,0.7)',
+          position: 'relative',
+          zIndex: 2,
+          borderTop: '1px solid rgba(0,0,0,0.1)'
+        }}>
+          <Button
+            variant="outlined"
+            size="small"
+            startIcon={<AgricultureIcon />}
+            onClick={() => {
+              setIsOffTopic(false);
+              setQuestion("Tell me about agricultural optimizations for Indian farmers");
+              setTimeout(() => handleSend(), 100);
+            }}
+            sx={{
+              color: '#1E5631',
+              borderColor: '#1E5631',
+              '&:hover': {
+                backgroundColor: 'rgba(30, 86, 49, 0.05)',
+                borderColor: '#1E5631',
+              }
+            }}
+          >
+            Return to Agricultural Demo
+          </Button>
+        </Box>
+      )}
+
       {/* Input Section */}
       <Box
         sx={{
@@ -817,7 +933,9 @@ Please provide a detailed analysis with:
 
         <TextField
           fullWidth
-          placeholder="Ask about crop optimization, market trends, supply chain..."
+          placeholder={isOffTopic 
+            ? "Ask me anything..." 
+            : "Ask about crop optimization, market trends, supply chain..."}
           className="input-field"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
@@ -829,9 +947,9 @@ Please provide a detailed analysis with:
                   onClick={handleSend}
                   disabled={loading}
                   sx={{
-                    backgroundColor: "#E5BB4B", // Wheat gold
+                    backgroundColor: isOffTopic ? "#2196f3" : "#E5BB4B", // Blue for off-topic, Wheat gold for on-topic
                     color: "#fff",
-                    "&:hover": { backgroundColor: "#d4aa43" },
+                    "&:hover": { backgroundColor: isOffTopic ? "#1976d2" : "#d4aa43" },
                     "&.Mui-disabled": { backgroundColor: "#f0f0f0" }
                   }}
                 >
@@ -843,7 +961,7 @@ Please provide a detailed analysis with:
           sx={{
             "& .MuiOutlinedInput-root": {
               borderRadius: "20px",
-              backgroundColor: "#F5F5DC", // Light beige
+              backgroundColor: isOffTopic ? "rgba(33, 150, 243, 0.05)" : "#F5F5DC", // Light blue for off-topic
             }
           }}
         />
