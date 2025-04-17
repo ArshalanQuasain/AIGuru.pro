@@ -9,10 +9,10 @@ function IndustrySection({ Icon, title, brief, Data }) {
         <div className="flex flex-col py-8 px-4 md:px-16 lg:px-32">
             {/* Header Section */}
             <div className="flex items-center mb-8 z-50">
-                <Icon className="text-6xl mr-4 text-purple-400" /> 
+                <Icon className="text-6xl mr-4 text-pink-100" /> 
                 <div>
-                    <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-400">{title}</h1>
-                    <p className="text-lg text-gray-50">{brief}</p>
+                    <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-pink-100">{title}</h1>
+                    <p className="text-lg text-white">{brief}</p>
                 </div>
             </div>
 

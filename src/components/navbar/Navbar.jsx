@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const menuRef = useRef(null);
 
     const toggleMenu = () => {
@@ -10,28 +11,42 @@ const Navbar = () => {
     };
 
     useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 20) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
                 setIsOpen(false);
             }
         };
 
+        window.addEventListener("scroll", handleScroll);
         document.addEventListener("mousedown", handleClickOutside);
+        
         return () => {
+            window.removeEventListener("scroll", handleScroll);
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
     return (
-        <nav className="p-4 fixed top-0 text-lg left-0 w-full z-50 bg-transparent">
+        <nav className={`p-4 fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/90 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto flex justify-between items-center">
-                <div className="hidden md:flex space-x-6 ml-auto">
+                {/* Logo or Brand Name could go here */}
+                
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex space-x-8 ml-auto">
                     <NavLink
                         to="/home"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                ? "text-blue-400 font-medium text-lg relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-blue-500"
+                                : "text-white font-medium text-lg hover:text-blue-300 transition-colors relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-500 after:transition-all hover:after:w-full"
                         }
                     >
                         Home
@@ -40,8 +55,8 @@ const Navbar = () => {
                         to="/about"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                ? "text-blue-400 font-medium text-lg relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-blue-500"
+                                : "text-white font-medium text-lg hover:text-blue-300 transition-colors relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-500 after:transition-all hover:after:w-full"
                         }
                     >
                         About
@@ -50,8 +65,8 @@ const Navbar = () => {
                         to="/contact"
                         className={({ isActive }) =>
                             isActive
-                                ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                : "text-black text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                ? "text-blue-400 font-medium text-lg relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-0.5 after:bg-blue-500"
+                                : "text-white font-medium text-lg hover:text-blue-300 transition-colors relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-0 after:h-0.5 after:bg-blue-500 after:transition-all hover:after:w-full"
                         }
                     >
                         Contact
@@ -61,7 +76,7 @@ const Navbar = () => {
                 {/* Mobile Hamburger Icon */}
                 {!isOpen && (
                     <div className="md:hidden flex items-center ml-auto">
-                        <button onClick={toggleMenu} className="text-gray-900 focus:outline-none">
+                        <button onClick={toggleMenu} className="text-white focus:outline-none">
                             <svg
                                 className="w-6 h-6"
                                 fill="none"
@@ -84,7 +99,7 @@ const Navbar = () => {
                 {isOpen && (
                     <div
                         ref={menuRef}
-                        className="w-1/2 h-min fixed ml-auto inset-0 bg-inherit z-50 md:hidden"
+                        className="fixed top-0 right-0 h-screen w-64 bg-gray-900 shadow-xl z-50 md:hidden transform transition-transform duration-300 ease-in-out"
                     >
                         <div className="flex justify-end p-4">
                             <button onClick={toggleMenu} className="text-white">
@@ -105,14 +120,14 @@ const Navbar = () => {
                                 </svg>
                             </button>
                         </div>
-                        <div className="flex flex-col items-center space-y-6 text-white">
+                        <div className="flex flex-col items-center space-y-8 mt-8 p-4">
                             <NavLink
                                 to="/home"
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-blue-400 font-medium text-lg border-l-4 border-blue-500 pl-4 w-full"
+                                        : "text-white font-medium text-lg hover:text-blue-300 hover:border-l-4 hover:border-blue-500 hover:pl-4 transition-all w-full"
                                 }
                             >
                                 Home
@@ -122,8 +137,8 @@ const Navbar = () => {
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-blue-400 font-medium text-lg border-l-4 border-blue-500 pl-4 w-full"
+                                        : "text-white font-medium text-lg hover:text-blue-300 hover:border-l-4 hover:border-blue-500 hover:pl-4 transition-all w-full"
                                 }
                             >
                                 About
@@ -133,8 +148,8 @@ const Navbar = () => {
                                 onClick={toggleMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? "text-red-700  text-lg border-b-2 border-blue-600"
-                                        : "text-gray-900 text-lg hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-400"
+                                        ? "text-blue-400 font-medium text-lg border-l-4 border-blue-500 pl-4 w-full"
+                                        : "text-white font-medium text-lg hover:text-blue-300 hover:border-l-4 hover:border-blue-500 hover:pl-4 transition-all w-full"
                                 }
                             >
                                 Contact

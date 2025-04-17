@@ -31,8 +31,8 @@ const ContactUs = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center w-full m-2 items-center min-h-screen bg-gray-100 py-10 font-sans">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-8 text-center">Contact Us</h1>
+    <div className="flex flex-col justify-center w-full p-2 items-center min-h-screen bg-gradient-to-r from-gray-900 to-blue-950 py-10 font-sans">
+      <h1 className="text-3xl font-semibold text-white mb-8 text-center">Contact Us</h1>
       <div id="hubspotForm" className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out"></div>
     </div>
   );
