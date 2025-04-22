@@ -8,9 +8,9 @@ function About() {
   }
 
   return (
-    <div className="bg-white text-gray-800">
+    <div className=" bg-gradient-to-b from-gray-900 to-blue-950">
       {/* Hero Section */}
-      <div className="text-center py-12 bg-gradient-to-r from-blue-900 to-blue-950 text-white">
+      <div className="text-center py-12 bg-gradient-to-r  text-white">
         <h1 className="text-6xl font-semibold">AI Guru Solutions</h1>
         <h1 className="text-sm mb-6 text-gray-300">Bridging Silicon Valley Innovation with Indian Excellence</h1>
         <p className="text-lg max-w-4xl mx-auto text-gray-100">
@@ -19,10 +19,10 @@ function About() {
       </div>
 
       {/* Core Solutions */}
-      <div className="py-12 bg-gradient-to-r from-blue-900 to-blue-950 px-4 sm:px-8 md:px-16 text-gray-50">
+      <div className="bg-gradient-to-l py-12 px-4 sm:px-8 md:px-16 text-gray-50">
         <h2 className="text-4xl font-semibold mb-8">Our Core Solutions:</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          <div className="p-6 bg-white text-gray-800 shadow-lg rounded-lg border border-gray-200 transform transition-transform hover:scale-105">
+          <div className="p-6 rounded-lg border border-gray-200 transform transition-transform hover:scale-105">
             <h3 className="text-2xl font-semibold mb-4">Custom AI Implementation</h3>
             <ul className="list-disc pl-5">
               <li>Tailored AI solutions designed for your specific business needs</li>
@@ -31,7 +31,7 @@ function About() {
               <li>Scalable and future-ready architecture</li>
             </ul>
           </div>
-          <div className="p-6 bg-white text-gray-800 shadow-lg rounded-lg border border-gray-200 transform transition-transform hover:scale-105">
+          <div className="p-6  shadow-lg rounded-lg border border-gray-200 transform transition-transform hover:scale-105">
             <h3 className="text-2xl font-semibold mb-4">Industry-Specific Solutions</h3>
             <ul className="list-disc pl-5">
               <li><strong>Healthcare & Pharma</strong> - Medical AI systems, Health coaching, Patient analytics, Drug discovery</li>
@@ -44,7 +44,7 @@ function About() {
       </div>
 
       {/* What Sets Us Apart */}
-      <div className="py-12 px-4 sm:px-8 md:px-16 bg-gradient-to-r from-blue-900 to-blue-950 text-gray-50">
+      <div className="py-12 px-4 sm:px-8 md:px-16 bg-gradient-to-r text-gray-50">
         <h2 className="text-4xl font-semibold mb-8">What Sets Us Apart</h2>
         <div className="max-w-6xl m-8 text-lg">
           <p><strong>Silicon Valley Expertise:</strong> Founded by former Amazon and Cerebras Systems executives, we bring cutting-edge AI knowledge and best practices from the global technology hub to your doorstep.</p>
@@ -60,7 +60,7 @@ function About() {
       </div>
 
       {/* Our Approach */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-950 py-12 px-4 sm:px-8 md:px-16 text-gray-50">
+      <div className=" bg-gradient-to-l py-12 px-4 sm:px-8 md:px-16 text-gray-50">
         <h2 className="text-4xl font-semibold mb-8">Our Approach</h2>
         <div className="max-w-6xl m-8 text-lg">
           <p><strong>Assessment:</strong> We begin by understanding your unique challenges and objectives.</p>
@@ -72,7 +72,7 @@ function About() {
       </div>
 
       {/* Global Presence */}
-      <div className="py-12 px-4 sm:px-8 md:px-16 bg-gradient-to-r from-blue-900 to-blue-950 text-gray-50">
+      <div className="py-12 px-4 sm:px-8 md:px-16 bg-gradient-to-r text-gray-50">
         <h2 className="text-4xl font-semibold mb-8">Global Presence, Local Understanding</h2>
         <p className="text-lg max-w-4xl mx-auto text-center">
           With offices in Gujarat, India and New Jersey, USA, we combine global expertise with deep local market understanding to deliver solutions that work in real-world contexts.
@@ -80,7 +80,7 @@ function About() {
       </div>
 
       {/* Call to Action */}
-      <div className="py-12 bg-gradient-to-r from-blue-900 to-blue-950 px-4 sm:px-8 md:px-16 text-gray-50">
+      <div className="py-12 bg-gradient-to-l px-4 sm:px-8 md:px-16 text-gray-50">
         <h2 className="text-4xl font-semibold mb-8">Partner with Us</h2>
         <p className="text-lg text-center max-w-4xl mx-auto">
           Whether you're looking to implement AI solutions, transform your business processes, or build AI capabilities within your organization, AI Guru is your trusted partner in the AI transformation journey.

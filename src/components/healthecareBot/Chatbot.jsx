@@ -25,7 +25,6 @@ function Chatbot() {
   const messagesEndRef = useRef(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // Scroll to the latest message
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -60,12 +59,22 @@ function Chatbot() {
   };
 
   return (
-    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        fontFamily: 'Segoe UI, sans-serif',
+        background: 'linear-gradient(to bottom right, #e3f2fd, #fce4ec)',
+      }}
+    >
       {/* Header */}
-      <AppBar position="static">
+      <AppBar position="static" sx={{ background: 'linear-gradient(to bottom, #111827, #1E2A47)' }}>
         <Toolbar>
           <MedicalServicesIcon sx={{ mr: 1 }} />
-          <Typography variant="h6">Medical Chatbot</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            Medical Chatbot
+          </Typography>
         </Toolbar>
       </AppBar>
 
@@ -75,7 +84,7 @@ function Chatbot() {
           flexGrow: 1,
           padding: 2,
           overflowY: 'auto',
-          backgroundColor: '#f9f9f9',
+          backgroundColor: 'transparent',
         }}
       >
         <Container maxWidth="md">
@@ -98,7 +107,7 @@ function Chatbot() {
           alignItems: 'center',
           padding: 2,
           backgroundColor: '#fff',
-          boxShadow: 3,
+          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
         }}
       >
         <Grid container spacing={1} alignItems="center">
@@ -108,23 +117,23 @@ function Chatbot() {
               placeholder="Ask your medical question..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress} // Handle Enter key press
+              onKeyPress={handleKeyPress}
               variant="outlined"
               sx={{
-                backgroundColor: '#f1f1f1',
-                borderRadius: '25px',
+                backgroundColor: '#f9f9f9',
+                borderRadius: '40px',
+                fontFamily: 'Segoe UI, sans-serif',
               }}
             />
           </Grid>
           <Grid item xs={1}>
             <IconButton
               onClick={sendMessage}
-              color="primary"
               sx={{
-                backgroundColor: '#1976d2',
+                backgroundColor: '#111827',
                 color: '#fff',
                 '&:hover': {
-                  backgroundColor: '#115293',
+                  backgroundColor: '#1E2A47',
                 },
               }}
             >

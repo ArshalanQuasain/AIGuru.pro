@@ -191,7 +191,7 @@ const FinancialBot = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(to bottom right, #f4f6f8, #e0eafc)",
+        background: "linear-gradient(to left, #172554, #1e3a8a)",
         padding: 2,
       }}
     >
@@ -215,14 +215,14 @@ const FinancialBot = () => {
               mb: 3,
             }}
           >
-            <AccountBalanceIcon sx={{ fontSize: 40, color: "#1976d2" }} />
+            <AccountBalanceIcon sx={{ fontSize: 40, color: "#1c4d85" }} />
             <Typography
               variant="h4"
               align="center"
               gutterBottom
               sx={{
                 fontWeight: "bold",
-                color: "#1976d2",
+                color: "#1c4d85",
                 textShadow: "1px 1px 2px rgba(0,0,0,0.1)",
               }}
             >
@@ -234,7 +234,7 @@ const FinancialBot = () => {
           <AppBar
             position="static"
             sx={{
-              background: "#1976d2",
+              background: "#1c4d85",
               borderRadius: 2,
               overflow: "hidden",
               boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
@@ -258,7 +258,7 @@ const FinancialBot = () => {
           {/* ----------------- Tab 0: Ask a Question ----------------- */}
           {tab === 0 && (
             <Box p={3} sx={{ background: "#fff", borderRadius: 2, display: "flex", flexDirection: "column", gap: 2 }}>
-              <Paper elevation={0} sx={{ height: 300, overflowY: "auto", padding: 2, background: "#e8f0fe", borderRadius: 2 }}>
+              <Paper elevation={0} sx={{ height: 300, overflowY: "auto", padding: 2, background: "#ffff", borderRadius: 2 }}>
                 <List>
                   {chatHistory.map((chat, index) => (
                     <ListItem key={index} sx={{ justifyContent: chat.type === "user" ? "flex-end" : "flex-start" }}>
@@ -297,13 +297,13 @@ const FinancialBot = () => {
                   sx={{
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "20px",
-                      "& fieldset": { borderColor: "#1976d2" },
+                      "& fieldset": { borderColor: "#1c4d85" },
                     },
                   }}
                 />
                 <IconButton
                   onClick={handleSubmit}
-                  sx={{ background: "#26a69a", color: "#fff", ml: 1, "&:hover": { background: "#1976d2" } }}
+                  sx={{ background: "#26a69a", color: "#fff", ml: 1, "&:hover": { background: "#1c4d85" } }}
                 >
                   <SendIcon />
                 </IconButton>
@@ -358,8 +358,8 @@ const FinancialBot = () => {
                   fullWidth
                   sx={{
                     mt: 1,
-                    borderColor: "#1976d2",
-                    color: "#1976d2",
+                    borderColor: "#1c4d85",
+                    color: "#1c4d85",
                     "&:hover": { background: "#e0eafc" },
                   }}
                 >
@@ -378,7 +378,7 @@ const FinancialBot = () => {
                 sx={{
                   mt: 2,
                   background: "#26a69a",
-                  "&:hover": { background: "#1976d2" },
+                  "&:hover": { background: "#1c4d85" },
                   fontWeight: "bold",
                 }}
               >
@@ -434,7 +434,7 @@ const FinancialBot = () => {
                       startIcon={<CloudUploadIcon />}
                       component="span"
                       fullWidth
-                      sx={{ borderColor: "#1976d2", color: "#1976d2", "&:hover": { background: "#e0eafc" } }}
+                      sx={{ borderColor: "#1c4d85", color: "#1c4d85", "&:hover": { background: "#e0eafc" } }}
                     >
                       {docFile ? docFile.name : "Choose Document to Upload"}
                     </Button>
@@ -443,7 +443,7 @@ const FinancialBot = () => {
                     variant="contained"
                     onClick={handleDocUpload}
                     fullWidth
-                    sx={{ background: "#26a69a", "&:hover": { background: "#1976d2" }, fontWeight: "bold" }}
+                    sx={{ background: "#26a69a", "&:hover": { background: "#1c4d85" }, fontWeight: "bold" }}
                   >
                     Upload Document
                   </Button>
@@ -459,7 +459,7 @@ const FinancialBot = () => {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "20px",
-                        "& fieldset": { borderColor: "#1976d2" },
+                        "& fieldset": { borderColor: "#1c4d85" },
                       },
                     }}
                   />
@@ -467,7 +467,7 @@ const FinancialBot = () => {
                     variant="contained"
                     onClick={handleDocChatSubmit}
                     fullWidth
-                    sx={{ background: "#26a69a", "&:hover": { background: "#1976d2" }, fontWeight: "bold" }}
+                    sx={{ background: "#26a69a", "&:hover": { background: "#1c4d85" }, fontWeight: "bold" }}
                   >
                     Send
                   </Button>
@@ -478,7 +478,7 @@ const FinancialBot = () => {
                       setDocChatHistory([]);
                     }}
                     fullWidth
-                    sx={{ color: "#1976d2" }}
+                    sx={{ color: "#1c4d85" }}
                   >
                     Reset Document
                   </Button>

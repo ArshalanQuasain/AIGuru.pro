@@ -56,7 +56,7 @@ const ActionItem = styled(Box)(({ theme }) => ({
 const ActionDifficulty = styled(Chip)(({ difficulty }) => ({
   backgroundColor:
     difficulty === "Simple" ? "#4caf50" :
-    difficulty === "Moderate" ? "#ff9800" : "#f44336",
+      difficulty === "Moderate" ? "#ff9800" : "#f44336",
   color: "#fff",
   marginLeft: "auto",
   fontSize: "0.7rem",
@@ -137,9 +137,9 @@ const AgricultureBot = () => {
       'pricing', 'farmer', 'hectare', 'acre', 'organic', 'monsoon', 'rainfall',
       'seasonal', 'productivity', 'processing', 'storage', 'distribution', 'export'
     ];
-    
+
     const lowerText = text.toLowerCase();
-    
+
     // This is a simple check - in reality we're using the backend for this detection
     return agriKeywords.some(keyword => lowerText.includes(keyword));
   };
@@ -169,22 +169,22 @@ const AgricultureBot = () => {
       }
 
       const data = await response.json();
-      
+
       // Check if the response is agriculture-related (using the flag from backend)
-      const isAgricultureRelated = data.isAgricultureRelated !== undefined 
-        ? data.isAgricultureRelated 
+      const isAgricultureRelated = data.isAgricultureRelated !== undefined
+        ? data.isAgricultureRelated
         : checkIfAgricultural(question); // Fallback if backend doesn't provide the flag
-      
+
       // Update off-topic state
       setIsOffTopic(!isAgricultureRelated);
-      
+
       const botMessage = {
         role: "bot",
         content: data.reply || "I couldn't process that request. Please try again.",
         formatted: isAgricultureRelated ? formatBotResponse(data.reply) : null,
         isOffTopic: !isAgricultureRelated
       };
-      
+
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error:", err);
@@ -285,8 +285,8 @@ const AgricultureBot = () => {
 
         const difficulty = difficultyMatch ? difficultyMatch[1] :
           action.includes("Simple") ? "Simple" :
-          action.includes("Moderate") ? "Moderate" :
-          action.includes("Complex") ? "Complex" : "Moderate";
+            action.includes("Moderate") ? "Moderate" :
+              action.includes("Complex") ? "Complex" : "Moderate";
 
         return {
           action: actionText,
@@ -337,22 +337,22 @@ const AgricultureBot = () => {
       }
 
       const data = await response.json();
-      
+
       // Check if the file is agriculture-related (using the flag from backend)
-      const isAgricultureRelated = data.isAgricultureRelated !== undefined 
-        ? data.isAgricultureRelated 
+      const isAgricultureRelated = data.isAgricultureRelated !== undefined
+        ? data.isAgricultureRelated
         : true; // Assume relevant by default if backend doesn't provide the flag
-      
+
       // Update off-topic state
       setIsOffTopic(!isAgricultureRelated);
-      
+
       const botMessage = {
         role: "bot",
         content: data.result || "No insights available from this document.",
         formatted: isAgricultureRelated ? formatBotResponse(data.result) : null,
         isOffTopic: !isAgricultureRelated
       };
-      
+
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error:", err);
@@ -663,7 +663,7 @@ Please provide a detailed analysis with:
           right: 0,
           bottom: 0,
           left: 0,
-          background: "rgba(245, 245, 220, 0.85)", // Light beige overlay
+          background: "rgba(0, 0, 0, 0.5)", // Dark overlay for better readability
           zIndex: 1,
         },
       }}
@@ -671,7 +671,7 @@ Please provide a detailed analysis with:
       {/* Header */}
       <Box
         sx={{
-          backgroundColor: "#1E5631", // Deep green
+          background: "linear-gradient(to right, #056676, #1B6F69)", // Calming teal gradient
           color: "#fff",
           textAlign: "center",
           py: 2,
@@ -679,28 +679,30 @@ Please provide a detailed analysis with:
           zIndex: 2,
         }}
       >
-        <Typography variant="h5" fontWeight="bold" sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <AgricultureIcon sx={{ mr: 1 }} /> Agricultural Intelligence Bot
+        <Typography variant="h4" fontWeight="bold" display="flex" justifyContent="center" alignItems="center">
+          <AgricultureIcon sx={{ mr: 1, color: "#fff" }} /> Agricultural Intelligence Bot
         </Typography>
-        <Typography variant="subtitle1" fontStyle="italic">
+        <Typography variant="subtitle1" fontStyle="italic" color="rgba(255, 255, 255, 0.7)">
           Smart insights for agricultural business growth
         </Typography>
       </Box>
-
+  
       {/* Use Cases */}
       <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: 1,
-          p: 1,
-          backgroundColor: "rgba(229, 187, 75, 0.2)", // Wheat gold with transparency
+          gap: 2,
+          p: 2,
+          background: "linear-gradient(to right, #056676, #1B6F69)", // Same gradient as header
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
           position: "relative",
           zIndex: 2,
         }}
       >
-        <Typography variant="subtitle2" sx={{ width: "100%", textAlign: "center", mb: 0.5 }}>
+        <Typography variant="subtitle1" sx={{ width: "100%", textAlign: "center", color: "#fff", mb: 1 }}>
           Demo Use Cases:
         </Typography>
         {useCases.map((useCase) => (
@@ -708,15 +710,14 @@ Please provide a detailed analysis with:
             key={useCase.id}
             variant="outlined"
             size="small"
-            className="demo-use-case-button"
             onClick={() => handleUseCaseClick(useCase)}
             sx={{
-              borderColor: "#1E5631",
-              color: "#1E5631",
-              backgroundColor: activeUseCase?.id === useCase.id ? "rgba(30, 86, 49, 0.1)" : "transparent",
+              borderColor: "#2196F3", // Fresh blue for a modern touch
+              color: "#fff",
+              backgroundColor: activeUseCase?.id === useCase.id ? "rgba(33, 150, 243, 0.1)" : "transparent",
               "&:hover": {
-                backgroundColor: "rgba(30, 86, 49, 0.05)",
-                borderColor: "#1E5631",
+                backgroundColor: "rgba(33, 150, 243, 0.15)",
+                borderColor: "#1E3A8A",
               },
             }}
           >
@@ -724,26 +725,25 @@ Please provide a detailed analysis with:
           </Button>
         ))}
       </Box>
-
-      {/* Off-Topic Banner - Appears when the conversation goes off agricultural topics */}
+  
+      {/* Off-Topic Banner */}
       {isOffTopic && (
-        <OffTopicBanner 
+        <OffTopicBanner
           severity="info"
           icon={<ChatIcon />}
-          sx={{ 
-            mx: 2, 
-            mt: 1, 
+          sx={{
+            mx: 2,
+            mt: 1,
             backgroundColor: "rgba(33, 150, 243, 0.1)",
             border: "1px solid rgba(33, 150, 243, 0.3)"
           }}
         >
-          <Typography variant="body2">
-            <strong>Conversational Mode:</strong> You're now chatting outside the agricultural demo context. 
-            Responses will be conversational rather than in the structured business format.
+          <Typography variant="body2" sx={{ color: "#333" }}>
+            <strong>Conversational Mode:</strong> You're now chatting outside the agricultural demo context. Responses will be conversational.
           </Typography>
         </OffTopicBanner>
       )}
-
+  
       {/* Chat Container */}
       <Box
         sx={{
@@ -754,34 +754,28 @@ Please provide a detailed analysis with:
           gap: "12px",
           padding: "16px",
           zIndex: 2,
+          backgroundColor: "rgba(255, 255, 255, 0.2)", // Slight
         }}
       >
         {messages.map((msg, index) => (
-          <Box
-            key={index}
-            sx={{
-              display: "flex",
-              justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
-            }}
-          >
+          <Box key={index} display="flex" justifyContent={msg.role === "user" ? "flex-end" : "flex-start"}>
             <Paper
               elevation={2}
-              className="agriculture-chat-message"
               sx={{
-                padding: "12px 16px",
+                p: 2,
                 maxWidth: "75%",
                 backgroundColor: msg.role === "user"
-                  ? "#E5BB4B" // Wheat gold for user
+                  ? "#E5BB4B"
                   : msg.isError
-                    ? "#f8d7da" // Light red for errors
-                    : msg.isOffTopic 
-                      ? "#e3f2fd" // Light blue for off-topic responses
-                      : "#F5F5DC", // Light beige for bot
+                    ? "#f8d7da"
+                    : msg.isOffTopic
+                      ? "#e3f2fd"
+                      : "#F5F5DC",
                 color: "#333",
-                borderRadius: "12px",
+                borderRadius: 2,
                 wordBreak: "break-word",
-                borderLeft: msg.role === "bot" 
-                  ? msg.isOffTopic 
+                borderLeft: msg.role === "bot"
+                  ? msg.isOffTopic
                     ? "4px solid #2196f3" // Blue accent for off-topic
                     : "4px solid #1E5631" // Deep green accent for on-topic
                   : "none",
@@ -806,13 +800,13 @@ Please provide a detailed analysis with:
                   />
                 </Box>
               )}
-
+  
               {msg.isOffTopic && msg.role === "bot" && (
                 <Typography variant="caption" fontStyle="italic" display="block" mb={1} color="text.secondary">
                   <ChatIcon sx={{ fontSize: '0.8rem', mr: 0.5 }} /> Conversational mode
                 </Typography>
               )}
-
+  
               {msg.isDemo && msg.role === "user" && (
                 <Typography variant="caption" fontStyle="italic" display="block" mb={1} color="text.secondary">
                   Demo mode
@@ -825,23 +819,23 @@ Please provide a detailed analysis with:
               ) : (
                 <Typography variant="body2" className="chat-text">{msg.content}</Typography>
               )}
-
+  
               {/* Show demo query buttons if this is a bot message in response to document upload */}
               {activeUseCase && msg.role === "bot" && msg.content.includes("analyzed") && (
                 <Box sx={{ mt: 1.5, pt: 1.5, borderTop: "1px solid rgba(0,0,0,0.1)" }}>
                   <Typography variant="caption" color="text.secondary" display="block" mb={1}>
                     Demo Queries:
                   </Typography>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    fullWidth
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      fullWidth
                     className="demo-query-button"
                     sx={{ mb: 1, fontSize: "0.75rem", textTransform: "none" }}
                     onClick={() => handleDemoQuery(activeUseCase.initialQuery)}
-                  >
+                    >
                     {activeUseCase.initialQuery}
-                  </Button>
+                    </Button>
                   <Button
                     size="small"
                     variant="outlined"
@@ -857,25 +851,25 @@ Please provide a detailed analysis with:
             </Paper>
           </Box>
         ))}
-
+  
         {loading && (
-          <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+          <Box display="flex" justifyContent="center" my={2}>
             <CircularProgress size={30} sx={{ color: "#1E5631" }} />
           </Box>
         )}
-
+  
         <div ref={messagesEndRef} />
       </Box>
-
-      {/* Return to Demo Button - Shows when in off-topic mode */}
+  
+      {/* Return to Demo Button */}
       {isOffTopic && (
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'center', 
-          p: 1, 
+            p: 1,
           backgroundColor: 'rgba(255,255,255,0.7)',
           position: 'relative',
-          zIndex: 2,
+            zIndex: 2,
           borderTop: '1px solid rgba(0,0,0,0.1)'
         }}>
           <Button
@@ -900,7 +894,7 @@ Please provide a detailed analysis with:
           </Button>
         </Box>
       )}
-
+  
       {/* Input Section */}
       <Box
         sx={{
@@ -919,22 +913,20 @@ Please provide a detailed analysis with:
           variant="contained"
           startIcon={<UploadFileIcon />}
           sx={{
-            backgroundColor: "#1E5631", // Deep green
-            "&:hover": {
-              backgroundColor: "#164a29", // Slightly darker green
-            },
+            backgroundColor: "#1E5631",
+            "&:hover": { backgroundColor: "#164a29" },
+            minWidth: 130,
             whiteSpace: "nowrap",
-            minWidth: "120px"
           }}
         >
           Upload File
-          <input type="file" accept=".csv,.txt,.pdf,.xlsx,.xls" hidden onChange={handleFileUpload} />
+          <input type="file" hidden accept=".csv,.txt,.pdf,.xlsx,.xls" onChange={handleFileUpload} />
         </Button>
-
+  
         <TextField
           fullWidth
-          placeholder={isOffTopic 
-            ? "Ask me anything..." 
+          placeholder={isOffTopic
+            ? "Ask me anything..."
             : "Ask about crop optimization, market trends, supply chain..."}
           className="input-field"
           value={question}
@@ -947,10 +939,10 @@ Please provide a detailed analysis with:
                   onClick={handleSend}
                   disabled={loading}
                   sx={{
-                    backgroundColor: isOffTopic ? "#2196f3" : "#E5BB4B", // Blue for off-topic, Wheat gold for on-topic
+                    backgroundColor: isOffTopic ? "#2196f3" : "#E5BB4B",
                     color: "#fff",
                     "&:hover": { backgroundColor: isOffTopic ? "#1976d2" : "#d4aa43" },
-                    "&.Mui-disabled": { backgroundColor: "#f0f0f0" }
+                    "&.Mui-disabled": { backgroundColor: "#f0f0f0" },
                   }}
                 >
                   <SendIcon />
@@ -988,6 +980,7 @@ Please provide a detailed analysis with:
       )}
     </Box>
   );
+  
 };
 
 export default AgricultureBot;
